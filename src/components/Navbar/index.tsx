@@ -77,7 +77,7 @@ export default function Navbar() {
                 />
 
                 <div
-                  className={`${isOpen ? "" : "hidden"} absolute left-0 top-0 mt-[40px] flex min-w-full flex-col divide-y divide-solid divide-opacity-50 capitalize`}
+                  className={`${isOpen ? "" : "hidden"} absolute left-0 top-0 mt-[42px] flex min-w-full flex-col divide-y divide-solid divide-opacity-50 capitalize`}
                 >
                   {children.map(
                     ({ id, path }: TNavLinksChildren, index: number) => {
