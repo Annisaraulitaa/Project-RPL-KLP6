@@ -99,11 +99,12 @@ export default function Navbar() {
         </div>
       </section>
 
-      <button
-        className={`${currentPathname === "/profile" ? "font-bold" : "font-semibold"} rounded-lg bg-white px-5 py-2 text-red-500`}
+      <Link
+        href={"/profile"}
+        className={`${currentPathname === "/profile" ? "bg-gray-300 font-bold" : "bg-white font-semibold"} rounded-lg px-5 py-2 text-red-500`}
       >
-        Profil
-      </button>
+        Profile
+      </Link>
     </nav>
   );
 }
