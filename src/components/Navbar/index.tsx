@@ -68,7 +68,7 @@ export default function Navbar() {
               <div
                 key={id}
                 onClick={() => handleDropdown(id)}
-                className={`${path.includes(currentPathname) ? "font-bold" : ""} relative flex cursor-pointer items-center justify-center gap-2 px-3 py-3 capitalize`}
+                className={`${currentPathname === path || (Array.isArray(path) && path.includes(currentPathname)) ? "font-bold" : ""} relative flex cursor-pointer items-center justify-center gap-2 px-3 py-3 capitalize`}
               >
                 <h5>{id}</h5>
                 <FaChevronDown
