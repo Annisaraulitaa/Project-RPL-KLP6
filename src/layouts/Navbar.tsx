@@ -40,7 +40,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="flex w-full items-center justify-between bg-reddish-brown px-7 py-2 text-white">
+    <nav className="sticky top-0 z-10 flex w-full items-center justify-between bg-reddish-brown px-7 py-2 text-white">
       <section className="flex w-3/5 items-center justify-between">
         <div className="flex items-center gap-5">
           <Image src={logo} alt="gambar" width={60} height={60} />
@@ -51,7 +51,7 @@ export default function Navbar() {
 
         <div
           onClick={handleClickOutsideDropdown}
-          className={`${isDropdownOpened ? "" : "hidden"} absolute left-0 right-0 top-0 mt-9 h-screen w-full`}
+          className={`${isDropdownOpened ? "" : "hidden"} absolute left-0 right-0 top-0 z-10 mt-9 h-screen w-full`}
         />
         <div className="flex gap-8">
           {navLink.map(({ id, path, isOpen, children }: TNavLinksItem) => {
@@ -77,7 +77,7 @@ export default function Navbar() {
                 />
 
                 <div
-                  className={`${isOpen ? "" : "hidden"} absolute left-0 top-0 mt-[42px] flex min-w-full flex-col divide-y divide-solid divide-opacity-50 capitalize`}
+                  className={`${isOpen ? "" : "hidden"} absolute left-0 top-0 mt-[42px] flex min-w-full flex-col divide-y divide-solid divide-opacity-50 capitalize z-20`}
                 >
                   {children.map(
                     ({ id, path }: TNavLinksChildren, index: number) => {
