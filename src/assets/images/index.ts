@@ -1,3 +1,6 @@
 import logo from "./psm.png";
 
-export { logo };
+import structure from "./structure.png";
+import news from "./news.png";
+
+export { logo, structure, news };
