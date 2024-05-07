@@ -13,7 +13,7 @@ export default function Structure() {
         image={heroData.structure.image}
       />
 
-      <div className="grid grid-cols-2 gap-20 p-20">
+      <div className="grid grid-cols-2 gap-24 px-40 py-20">
         {organizationCommitteeMock.map((commiteMember, index) => (
           <div key={index} className="flex justify-center">
             <CommitteCard {...commiteMember} />
