@@ -1,5 +1,5 @@
 import { THeroProps } from "@/assets/types/layouts/THero";
-import { structure, news } from "@/assets/images";
+import { structure, news, achiev } from "@/assets/images";
 
 export const heroData: { [key: string]: THeroProps } = {
   home: {
@@ -20,8 +20,8 @@ export const heroData: { [key: string]: THeroProps } = {
     image: "",
   },
   achievements: {
-    heroContent: "",
-    image: "",
+    heroContent: "Achievement",
+    image: achiev,
   },
   gallery: {
     heroContent: "",
