@@ -14,7 +14,7 @@ export default function Achievement() {
       />
 
       {AchievementsMock.map((achiev, index) => (
-        <AchievementSection key={index} index={index} {...achiev} />
+        <AchievementSection key={index} {...achiev} />
       ))}
     </section>
     </>

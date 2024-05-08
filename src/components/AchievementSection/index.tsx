@@ -6,7 +6,7 @@ export default function AchievementSection({
   content,
   image,
   id,
-}: TAchievement & { index: number }) {
+}: TAchievement ) {
   return (
     <div className={`flex w-full items-center gap-2 p-16 ${id !== 1 ? 'border-t-2 ' : ''} ${id % 2 === 0 ? 'flex-row-reverse' : ''}`}>
       <div className="flex h-full w-1/2">
