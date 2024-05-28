@@ -22,16 +22,16 @@ export const footLinks = {
     tiktok: "https://www.tiktok.com/@psmunhas",
     whatsapp: "https://wa.me/+628987378316",
     youtube: "https://youtube.com/@psmunhas",
+    email: "psmunhas@gmail.com",
   },
-  address:
-    "Sekretariat UKM Paduan Suara Mahasiswa Universitas Hasanuddin, Jalan Perintis Kemerdekaan Km 10. Gedung PKM 2 lantai 1, Tamalanrea Indah, Kec. Tamalanrea, Kota Makassar, Sulawesi Selatan 90245",
-  // "address": {
-  //   "street": "Jalan Perintis Kemerdekaan Km 10",
-  //   "building": "Gedung PKM 2 lantai 1",
-  //   "neighborhood": "Tamalanrea Indah",
-  //   "district": "Tamalanrea",
-  //   "city": "Makassar",
-  //   "province": "Sulawesi Selatan",
-  //   "postal-code": "90245",
-  // },
+  address: {
+    name: "Sekretariat UKM Paduan Suara Mahasiswa Universitas Hasanuddin",
+    street: "Jalan Perintis Kemerdekaan Km 10",
+    building: "Gedung PKM 2 lantai 1",
+    neighborhood: "Tamalanrea Indah",
+    district: "Tamalanrea",
+    city: "Makassar",
+    province: "Sulawesi Selatan",
+    "postal-code": "90245",
+  },
 };

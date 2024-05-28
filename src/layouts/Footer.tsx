@@ -10,7 +10,7 @@ export default function Footer() {
   const { contact, socialMedia, address } = footLinks;
 
   return (
-    <footer className="flex h-full w-full flex-col gap-20 bg-reddish-brown py-20 px-16 text-white">
+    <footer className="flex h-full w-full flex-col gap-20 bg-reddish-brown px-16 py-20 text-white">
       <section className="flex items-center justify-evenly">
         <Image src={logo} alt="logo psm" width={180} height={180} />
 
@@ -57,7 +57,7 @@ export default function Footer() {
         <section className="flex flex-col gap-3">
           <h5 className="text-xl font-bold">Alamat</h5>
 
-          <p className="w-56">{address}</p>
+          <p className="w-56">{`${address.name}, ${address.street}. ${address.building}, ${address.neighborhood}, Kec. ${address.district}, Kota ${address.city}, ${address.province} ${address["postal-code"]}`}</p>
         </section>
 
         <section className="flex flex-col gap-3">

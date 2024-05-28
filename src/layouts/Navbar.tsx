@@ -11,7 +11,7 @@ import {
 } from "@/assets/types/layouts/TNavLinks";
 import { navLinks } from "@/constants/layouts/NavbarConstants";
 import { logo } from "@/assets/images";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaUser } from "react-icons/fa";
 
 export default function Navbar() {
   const currentPathname = usePathname();
@@ -40,14 +40,14 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-10 flex w-full items-center justify-between bg-reddish-brown px-7 py-2 text-white">
+    <nav className="sticky top-0 z-10 flex w-full items-center justify-between bg-reddish-brown px-8 py-2 text-white">
       <section className="flex w-3/5 items-center justify-between">
-        <div className="flex items-center gap-5">
+        <Link href={"/"} className="flex items-center gap-5">
           <Image src={logo} alt="gambar" width={60} height={60} />
           <h2 className="w-64 font-extrabold uppercase">
             Paduan Suara Mahasiswa Universitas Hasanuddin
           </h2>
-        </div>
+        </Link>
 
         <div
           onClick={handleClickOutsideDropdown}
@@ -77,7 +77,7 @@ export default function Navbar() {
                 />
 
                 <div
-                  className={`${isOpen ? "" : "hidden"} absolute left-0 top-0 mt-[42px] flex min-w-full flex-col divide-y divide-solid divide-opacity-50 capitalize z-20`}
+                  className={`${isOpen ? "" : "hidden"} absolute left-0 top-0 z-20 mt-[42px] flex min-w-full flex-col divide-y divide-solid divide-opacity-50 capitalize`}
                 >
                   {children.map(
                     ({ id, path }: TNavLinksChildren, index: number) => {
@@ -101,9 +101,9 @@ export default function Navbar() {
 
       <Link
         href={"/profile"}
-        className={`${currentPathname === "/profile" ? "bg-gray-300 font-bold" : "bg-white font-semibold"} rounded-lg px-5 py-2 text-red-500`}
+        className={`${currentPathname === "/profile" ? "bg-red-900" : "bg-red-800"} rounded-lg p-2 hover:bg-red-900`}
       >
-        Profile
+        <FaUser className="h-5 w-5" />
       </Link>
     </nav>
   );
