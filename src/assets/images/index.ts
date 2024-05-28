@@ -2,6 +2,7 @@ import logo from "./psm.png";
 import structure from "./structure.png";
 import news from "./news.png";
 import achiev from "./achiev.png";
+import contact from "./contact.png"
 import achievement1 from "./achievement/2006.png";
 
 import fIndonesia from "./achievement/indonesia.svg";
@@ -20,6 +21,7 @@ export {
   structure,
   news,
   achiev,
+  contact,
   achievement1,
   fIndonesia,
   fChina,
