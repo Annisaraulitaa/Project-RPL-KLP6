@@ -1,53 +1,61 @@
 import { user } from "@/assets/mockImages";
+import {
+  ketua,
+  wakil,
+  bendahara,
+  sekretaris,
+  conductor,
+  arranger,
+} from "@/assets/mockImages";
 import { TCommite } from "@/assets/types/Components/TCommite";
 
 export const organizationCommitteeMock: TCommite[] = [
   {
     id: 1,
-    name: "Bambang Wijaya",
+    name: "Ikhwansyah Hanifa",
     position: "Ketua Umum",
-    image: user,
+    image: ketua,
   },
   {
     id: 2,
-    name: "Rina Setiawan",
+    name: "Andi Fajar",
     position: "Wakil Ketua",
-    image: user,
+    image: wakil,
   },
   {
     id: 3,
-    name: "Tuti Prihatin",
+    name: "Rara Aqilah Salsabila",
     position: "Bendahara",
-    image: user,
+    image: bendahara,
   },
   {
     id: 4,
-    name: "Andi Nugroho",
+    name: "Farhan Arya Dira",
     position: "Sekretaris",
-    image: user,
+    image: sekretaris,
   },
   {
     id: 5,
-    name: "Dewi Lestari",
+    name: "Anshari Sanusi",
     position: "Manager & Konduktor",
-    image: user,
+    image: conductor,
   },
   {
     id: 6,
-    name: "Budi Santoso",
+    name: "Hajrul Farawansya, S.Si.",
     position: "Pianis & Arranger",
-    image: user,
+    image: arranger,
   },
-  {
-    id: 7,
-    name: "Siti Rahmawati",
-    position: "Kearsipan",
-    image: user,
-  },
-  {
-    id: 8,
-    name: "Ahmad Fauzi",
-    position: "Sumber Daya",
-    image: user,
-  },
+  // {
+  //   id: 7,
+  //   name: "Siti Rahmawati",
+  //   position: "Kearsipan",
+  //   image: user,
+  // },
+  // {
+  //   id: 8,
+  //   name: "Ahmad Fauzi",
+  //   position: "Sumber Daya",
+  //   image: user,
+  // },
 ];

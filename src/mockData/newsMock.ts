@@ -1,25 +1,20 @@
 import { TNews } from "@/assets/types/Components/TNews";
+import { news1, news2 } from "@/assets/mockImages";
 
 export const newsMock: TNews[] = [
   {
     id: 1,
-    title: "Judul Berita 1",
+    title: "PSM Unhas Raih Medali Emas Pada Ajang Bergengsi Dunia",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    image: "https://placehold.co/700x350",
+      "Prestasi membanggakan kembali diraih oleh Paduan Suara Mahasiswa (PSM) Universitas Hasanuddin. Kali ini, PSM Unhas berhasil meraih emas dalam ajang internasional bertajuk “12th World Choir Games“, sebuah ajang tertinggi paduan suara dunia yang diselenggarakan oleh Interkultur Foundation. Kegiatan berlangsung di Gangneung, Korea Selatan, Jumat (07/07).",
+    image: news1,
   },
   {
     id: 2,
-    title: "Judul Berita 2",
+    title:
+      "Juara di Lisabon Sings 2022, PSM Unhas Harumkan Nama Indonesia di Portugal",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    image: "https://placehold.co/700x350",
-  },
-  {
-    id: 3,
-    title: "Judul Berita 3",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    image: "https://placehold.co/700x350",
+      "Paduan Suara Mahasiswa Universitas Hasanuddin (PSM Unhas) mengikuti kompetisi choir internasional, Lisabon Sings 2022 di Kota Lisbon, Portugal pada 11-14 November 2022. Lisabon Sings 2022 merupakan ajang kompetisi paduan suara bertaraf internasional yang diselenggarakan oleh Organisasi Interkultur yang pada penyelenggaraan tahun 2022 ini, Portugal menjadi tuan rumah.",
+    image: news2,
   },
 ];
