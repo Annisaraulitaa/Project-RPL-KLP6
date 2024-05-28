@@ -6,6 +6,10 @@ body {
   background: #ffffff;
 }
 
+.text-shadow-lg {
+  text-shadow: 4px 4px 4px rgba(148, 142, 142, 0.377);
+}
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;

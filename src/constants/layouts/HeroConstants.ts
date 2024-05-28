@@ -1,10 +1,10 @@
 import { THeroProps } from "@/assets/types/layouts/THero";
-import { structure, news, achiev, contact } from "@/assets/images";
+import { structure, news, achiev, contact, home, event } from "@/assets/images";
 
 export const heroData: { [key: string]: THeroProps } = {
   home: {
-    heroContent: "",
-    image: "",
+    heroContent: "Selamat Datang di Laman Resmi PSM UNHAS",
+    image: home,
   },
   structure: {
     heroContent:
@@ -16,11 +16,11 @@ export const heroData: { [key: string]: THeroProps } = {
     image: news,
   },
   events: {
-    heroContent: "",
-    image: "",
+    heroContent: "Acara",
+    image: event,
   },
   achievements: {
-    heroContent: "Achievement",
+    heroContent: "Prestasi",
     image: achiev,
   },
   gallery: {

@@ -1,115 +1,151 @@
+import React from "react";
+import { Hero } from "@/layouts";
+import { heroData } from "@/constants/layouts/HeroConstants";
 import Image from "next/image";
+import { goal } from "@/assets/images";
+import { newsMock } from "@/mockData/newsMock";
+import NewsSection from "@/components/NewsSection";
 
 export default function Home() {
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        {/* <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-          <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200  lg:p-4 dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:dark:bg-zinc-800/30">
-            Get started by editing&nbsp;
-            <code className="font-mono font-bold">src/app/page.tsx</code>
+      <section className="flex min-h-screen w-full flex-col items-center">
+        <Hero
+          heroContent={heroData.home.heroContent}
+          image={heroData.home.image}
+        />
+
+        <div className="flex w-full flex-col items-center gap-6 px-40 py-6">
+          <p className="font-bold text-gray-600">HOME</p>
+          <div className="flex flex-col items-center">
+            <p className="text-shadow-lg flex text-4xl font-bold text-gray-600">
+              SELAMAT DATANG DI
+            </p>
+            <p className="text-shadow-lg flex text-4xl font-bold text-gray-600">
+              <span className="text-reddish-brown">PADUAN SUARA&nbsp;</span>
+              MAHASISWA UNIVERSITAS
+            </p>
+            <p className="text-shadow-lg flex text-4xl font-bold text-reddish-brown">
+              HASANUDDIN
+            </p>
+          </div>
+          <p className="text-shadow-lg px-48 text-justify text-xl">
+            <span className="font-bold">PSM UNHAS&nbsp;</span>DIDIRIKAN PADA
+            1978, MULAI SEBAGAI PARTISIPAN DALAM FESTIVAL PADUAN SUARA MAHASISWA
+            NASIONAL DI JAKARTA. PADA 1980-1990-AN, BERKEMBANG MENJADI UKM DI
+            BAWAH UKM SENI MUSIK, DAN PADA 22 JUNI 1998, MENJADI UNIT MANDIRI
+            BERDASARKAN SURAT KEPUTUSAN REKTOR. DENGAN LEBIH DARI 100 ANGGOTA,
+            PSM UNHAS AKTIF DALAM ACARA PROTOKOLER DAN NON-PROTOKOLER DI DALAM
+            DAN LUAR KAMPUS, MEMBUATNYA MENJADI UKM YANG PENTING DI UNIVERSITAS
+            HASANUDDIN. SAAT INI, PSM UNHAS MENDUDUKI PERINGKAT 8 DUNIA DALAM
+            KATEGORI FOLKLORE DI INTERKULTUR WORLD RANKINGS.
           </p>
-          <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white lg:static lg:size-auto lg:bg-none dark:from-black dark:via-black">
-            <a
-              className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{" "}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className="dark:invert"
-                width={100}
-                height={24}
-                priority
-              />
+          <p className="text-shadow-lg flex text-3xl font-bold text-reddish-brown">
+            NOBODY SINGS LIKE US ♫
+          </p>
+          <div className="flex w-full border-t-2"></div>
+        </div>
+
+        <div className="flex w-full flex-col items-center gap-6 bg-reddish-brown px-40 py-12">
+          <Image src={goal} alt="PSM Unhas" width={600} height={400} />
+          <p className="text-shadow-lg flex text-3xl font-bold text-white">
+            TUJUAN <span className="text-black">&nbsp;PSM&nbsp;</span>UNHAS
+          </p>
+          <p className="text-shadow-lg px-48 text-justify text-xl text-white">
+            <span className="font-bold">PSM UNHAS&nbsp;</span>
+            BERTUJUAN UNTUK MENAMPUNG KREATIVITAS MAHASISWA KHUSUSNYA DI BIDANG
+            OLAH VOKAL DAN MUSIK TIDAK HANYA UNTUK KOMPOSISI PADUAN SUARA DAN
+            VOCAL GROUP. NAMUN JUGA DALAM BENTUK NYANYI SOLO. BAIK ITU JENIS
+            POP. DANGDUT. KERONCONG, DAN SERIOSA, SERTA DIHARAPKAN JUGA
+            MAHASISWA YANG PUNYA KEAHLIAN MEMAINKAN ALAT MUSIK DAPAT BERGABUNG
+            BAIK ITU PIANO. KEYBOARD. GITAR. PERKUSI, DAN LAIN-LAIN YANG KEDEPAN
+            DIHARAPKAN AKAN TERBENTUK PULA BAND PSM UNHAS
+          </p>
+        </div>
+
+        <div className="flex w-full flex-col items-center gap-6 px-40 py-12">
+          <div className="relative flex w-full justify-center">
+            <p className="text-shadow-lg flex text-4xl font-bold text-reddish-brown">
+              BERITA
+            </p>
+            <a href="/about/news">
+              <button className="absolute right-0 flex rounded-xl border-2 p-2">
+                <p>BACA BERITA LEBIH LANJUT -&gt;</p>
+              </button>
             </a>
+          </div>
+
+          <div className="flex gap-40">
+            {newsMock.slice(0, 2).map((news, index) => (
+              <NewsSection key={index} {...news} />
+            ))}
+          </div>
+          <div className="flex w-full border-t-2"></div>
+        </div>
+
+        <div className="flex w-full flex-col gap-6 bg-reddish-brown px-40 py-12">
+          <div className="relative flex w-full justify-start">
+            <p className="text-shadow-lg flex text-4xl font-bold text-white">
+              PENGHARGAAN
+            </p>
+            <a href="/about/achievements">
+              <button className="absolute right-0 flex rounded-xl border-2 p-2 text-white">
+                <p>PRESTASI PSM UNHAS -&gt;</p>
+              </button>
+            </a>
+          </div>
+          <p className="text-3xl">&emsp;PSM UNHAS</p>
+          <div className="flex gap-6">
+            <Image src={goal} alt="PSM Unhas" width={600} height={400} />
+            <div className="grid grid-cols-3 justify-items-end gap-4">
+              <div className="flex flex-col place-items-center p-8 text-white">
+                <p className="text-4xl font-bold">00+</p>
+                <p>PRESTASI</p>
+              </div>
+              <div className="flex flex-col place-items-center p-8 text-white">
+                <p className="text-4xl font-bold">00+</p>
+                <p>NEGARA</p>
+              </div>
+              <div className="flex flex-col place-items-center p-8 text-white">
+                <p className="text-4xl font-bold">00+</p>
+                <p>KOSTUM</p>
+              </div>
+              <div className="flex flex-col place-items-center p-8 text-white">
+                <p className="text-4xl font-bold">00+</p>
+                <p>PELATIH</p>
+              </div>
+              <div className="flex flex-col place-items-center p-8 text-white">
+                <p className="text-4xl font-bold">00+</p>
+                <p>MEMBER</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="before:bg-gradient-radial after:bg-gradient-conic relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40">
-          <Image
-            className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
+        <div className="flex w-full flex-col items-center gap-6 px-40 py-12">
+          <div className="flex w-full border-b-2"></div>
+          <div className="relative flex w-full justify-center">
+            <p className="text-shadow-lg flex text-4xl font-bold text-reddish-brown">
+              GALERI
+            </p>
+          </div>
+          <div className="flex w-full items-center justify-between">
+            <div className="grid grid-cols-2 gap-6">
+              <Image src={goal} alt="PSM Unhas" width={450} height={300} />
+              <Image src={goal} alt="PSM Unhas" width={450} height={300} />
+              <Image src={goal} alt="PSM Unhas" width={450} height={300} />
+              <Image src={goal} alt="PSM Unhas" width={450} height={300} />
+            </div>
+            <a href="/about/gallery">
+              <button className="rounded-xl border-2 p-2">
+                <p>LIHAT LEBIH LANJUT -&gt;</p>
+              </button>
+            </a>
+          </div>
+
+          <div className="flex w-full border-t-2"></div>
         </div>
-
-        <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className="mb-3 text-2xl font-semibold">
-              Docs{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
-            </h2>
-            <p className="m-0 max-w-[30ch] text-sm opacity-50">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className="mb-3 text-2xl font-semibold">
-              Learn{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
-            </h2>
-            <p className="m-0 max-w-[30ch] text-sm opacity-50">
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className="mb-3 text-2xl font-semibold">
-              Templates{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
-            </h2>
-            <p className="m-0 max-w-[30ch] text-sm opacity-50">
-              Explore starter templates for Next.js.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className="mb-3 text-2xl font-semibold">
-              Deploy{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                -&gt;
-              </span>
-            </h2>
-            <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-              Instantly deploy your Next.js site to a shareable URL with Vercel.
-            </p>
-          </a>
-        </div> */}
-      </main>
+      </section>
     </>
   );
 }
