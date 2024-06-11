@@ -1,8 +1,13 @@
 import Image from "next/image";
-import Link from "next/link";
-import { TEvent } from "@/assets/types/Components/TEvent";
+import React from "react";
 
-export default function EventSection({ title, content, image }: TEvent) {
+interface EventSectionProps {
+  title: string;
+  content: string;
+  image: string;
+}
+
+const EventSection: React.FC<EventSectionProps> = ({ title, content, image }) => {
   return (
     <div className="flex flex-col max-w-[650px] py-8 gap-4">
       <h2 className="text-center text-3xl font-bold text-reddish-brown">{title}</h2>
@@ -13,4 +18,6 @@ export default function EventSection({ title, content, image }: TEvent) {
       </div>
     </div>
   );
-}
+};
+
+export default EventSection;
