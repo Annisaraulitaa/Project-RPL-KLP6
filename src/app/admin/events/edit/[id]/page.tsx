@@ -3,13 +3,21 @@
 import React, { useState, useRef, useEffect } from "react";
 
 const EditEventPage = () => {
+  const [eventId, setEventId] = useState<string | undefined | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const eventId = window.location.pathname.split("/").filter(Boolean).pop();
+  useEffect(() => {
+    // Check if window object is defined (client-side)
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
+      const eventId = path.split("/").filter(Boolean).pop();
+      setEventId(eventId);
+    }
+  }, []);
 
   useEffect(() => {
     if (!eventId) {
