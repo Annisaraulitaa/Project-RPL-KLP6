@@ -12,7 +12,8 @@ export default function NavbarAdmin() {
   const menuItems = [
     { name: "Events", href: "/admin/events" },
     { name: "Achievements", href: "/admin/achievements" },
-    { name: "Sign Out", href: "#", onClick: () => setIsModalOpen(true) },
+    { name: "News", href: "/admin/news"},
+    { name: "Sign Out", href: "/signin", onClick: () => setIsModalOpen(true) },
   ];
 
   function handleSignOut() {

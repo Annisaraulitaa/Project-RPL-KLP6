@@ -2,49 +2,61 @@
 
 import React, { useState, useRef, useEffect } from "react";
 
-const EditEventPage = () => {
-  const [eventId, setEventId] = useState<string | undefined | null>(null);
+const EditAchievementPage = () => {
+  const [achievementId, setAchievementId] = useState<string | undefined | null>(
+    null
+  );
   const [dragActive, setDragActive] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [year, setYear] = useState<number>(new Date().getFullYear());
+  const [countries, setCountries] = useState<
+    { country: string; title: string }[]
+  >([]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const path = window.location.pathname;
-      const eventId = path.split("/").filter(Boolean).pop();
-      setEventId(eventId);
+      const achievementId = path.split("/").filter(Boolean).pop();
+      setAchievementId(achievementId);
     }
   }, []);
 
   useEffect(() => {
-    if (!eventId) {
-      console.error("Event ID is undefined");
+    if (!achievementId) {
+      console.error("Achievement ID is undefined");
       return;
     }
 
-    const fetchEventDetails = async () => {
+    const fetchAchievementDetails = async () => {
       try {
         const response = await fetch(
-          `https://psm-rpl.up.railway.app/api/v1/event/${eventId}`
+          `https://psm-rpl.up.railway.app/api/v1/achievements/${achievementId}`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch event details");
+          throw new Error("Failed to fetch achievement details");
         }
-        const eventData = await response.json();
-        setTitle(eventData.title);
-        setContent(eventData.content);
-        if (eventData.photo_url) {
-          setUploadedFile(eventData.photo_url);
+        const achievementData = await response.json();
+        setTitle(achievementData.title);
+        setYear(achievementData.year);
+        // Ensure that countries are properly initialized
+        setCountries(
+          achievementData.countries.map((country: any) => ({
+            country: country.country || "",
+            title: country.title || "",
+          })) || []
+        );
+        if (achievementData.photo_url) {
+          setUploadedFile(achievementData.photo_url);
         }
       } catch (error) {
-        console.error("Error fetching event details:", error);
+        console.error("Error fetching achievement details:", error);
       }
     };
 
-    fetchEventDetails();
-  }, [eventId]);
+    fetchAchievementDetails();
+  }, [achievementId]);
 
   const handleDrag: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
@@ -71,6 +83,26 @@ const EditEventPage = () => {
     }
   };
 
+  const handleCountryChange = (index: number, value: string) => {
+    setCountries((prevCountries) => {
+      const updatedCountries = [...prevCountries];
+      updatedCountries[index] = { ...updatedCountries[index], country: value };
+      return updatedCountries;
+    });
+  };
+
+  const handleTitleChange = (index: number, value: string) => {
+    setCountries((prevCountries) => {
+      const updatedCountries = [...prevCountries];
+      updatedCountries[index] = { ...updatedCountries[index], title: value };
+      return updatedCountries;
+    });
+  };
+
+  const handleAddCountry = () => {
+    setCountries([...countries, { country: "", title: "" }]);
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -79,13 +111,14 @@ const EditEventPage = () => {
     try {
       const formData = new FormData();
       formData.append("title", title);
-      formData.append("content", content);
+      formData.append("year", year.toString());
+      formData.append("countries", JSON.stringify(countries));
       if (uploadedFile) {
         formData.append("photo", uploadedFile);
       }
 
       const response = await fetch(
-        `https://psm-rpl.up.railway.app/api/v1/event/${eventId}`,
+        `https://psm-rpl.up.railway.app/api/v1/achievements/${achievementId}`,
         {
           method: "PUT",
           headers: {
@@ -96,14 +129,14 @@ const EditEventPage = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to update event");
+        throw new Error("Failed to update achievement");
       }
 
       const data = await response.json();
-      console.log("Event updated successfully:", data);
-      window.location.href = "/admin/events";
+      console.log("Achievement updated successfully:", data);
+      window.location.href = "/admin/achievements";
     } catch (error) {
-      console.error("Error updating event:", error);
+      console.error("Error updating achievement:", error);
     }
   };
 
@@ -111,7 +144,7 @@ const EditEventPage = () => {
     <div className="flex items-center justify-center p-8">
       <div className="flex w-2/3 flex-col gap-8">
         <div className="flex items-center justify-center">
-          <p className="text-2xl font-semibold">Edit Event</p>
+          <p className="text-2xl font-semibold">Edit Achievement</p>
         </div>
         <div className="flex flex-col gap-6">
           <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
@@ -132,15 +165,61 @@ const EditEventPage = () => {
 
             <div>
               <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
-                Content
+                Year
               </label>
-              <textarea
-                id="content"
+              <input
+                type="number"
+                id="year"
+                aria-describedby="helper-text-explanation"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Explain the event"
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-              ></textarea>
+                placeholder="Enter Year"
+                value={year}
+                onChange={(e) => setYear(parseInt(e.target.value))}
+              />
+            </div>
+
+            <div>
+              <p className="text-sm font-medium">
+                Country Flag Code{" "}
+                <a
+                  className="text-blue-600"
+                  href="https://flagsapi.com/#countries"
+                >
+                  Click Here
+                </a>{" "}
+                Example: ID for Indonesia
+              </p>
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                Countries and Titles
+              </label>
+              {countries.map((country, index) => (
+                <div key={index} className="flex gap-4">
+                  <input
+                    type="text"
+                    placeholder="Enter Country Flag Code"
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    value={country.country}
+                    onChange={(e) => handleCountryChange(index, e.target.value)}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Enter Title"
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    value={country.title}
+                    onChange={(e) => handleTitleChange(index, e.target.value)}
+                  />
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={handleAddCountry}
+                className="mt-2 text-sm font-medium text-blue-600 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                Add Country
+              </button>
             </div>
 
             <div>
@@ -217,4 +296,4 @@ const EditEventPage = () => {
   );
 };
 
-export default EditEventPage;
+export default EditAchievementPage;

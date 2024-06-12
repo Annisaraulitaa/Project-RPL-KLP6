@@ -3,66 +3,73 @@
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
-interface Event {
+interface News {
   id: string;
   title: string;
   content: string;
   photo_url: string;
 }
 
-export default function EventTable() {
-  const [events, setEvents] = useState<Event[]>([]);
+export default function NewsTable() {
+  const [news, setNews] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [deleteEventId, setDeleteEventId] = useState<string | null>(null);
+  const [deleteNewsId, setDeleteNewsId] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchEvents() {
+    async function fetchNews() {
       try {
         const response = await fetch(
-          "https://psm-rpl.up.railway.app/api/v1/event"
+          "https://psm-rpl.up.railway.app/api/v1/news"
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch events");
+          throw new Error("Failed to fetch news");
         }
         const data = await response.json();
-        setEvents(data);
+        setNews(data.data);
         setLoading(false);
       } catch (error: any) {
-        console.error("Error fetching events:", error);
+        console.error("Error fetching news:", error);
         setError(error.message);
         setLoading(false);
       }
     }
 
-    fetchEvents();
+    fetchNews();
   }, []);
 
   const handleDelete = async (id: string) => {
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(
-        `https://psm-rpl.up.railway.app/api/v1/event/${id}`,
+        `https://psm-rpl.up.railway.app/api/v1/news/${id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       if (!response.ok) {
-        throw new Error("Failed to delete event");
+        throw new Error("Failed to delete news");
       }
-      setEvents(events.filter((event) => event.id !== id));
-      setDeleteEventId(null);
+      console.log("Deleting news with id:", id);
+      console.log("Current news list:", news);
+      setNews(news.filter((newsItem) => newsItem.id !== id));
+      console.log(
+        "Updated news list:",
+        news.filter((newsItem) => newsItem.id !== id)
+      );
+      setDeleteNewsId(null);
     } catch (error: any) {
-      console.error("Error deleting event:", error);
+      console.error("Error deleting news:", error);
       setError(error.message);
     }
   };
 
   if (loading) {
     return (
-      <div
-        role="status"
-        className="flex h-screen w-full justify-center p-16"
-      >
+      <div role="status" className="flex h-screen w-full justify-center p-16">
         <svg
           aria-hidden="true"
           className="h-8 w-8 animate-spin fill-blue-600 text-gray-200 dark:text-gray-600"
@@ -91,12 +98,12 @@ export default function EventTable() {
   return (
     <div className="p-16">
       <div className="mb-4 flex justify-between">
-        <h2 className="text-2xl font-semibold">Events</h2>
+        <h2 className="text-2xl font-semibold">News</h2>
         <button
-          onClick={() => (window.location.href = "/admin/events/create")}
+          onClick={() => (window.location.href = "/admin/news/create")}
           className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium leading-5 text-white hover:bg-blue-500 focus:bg-blue-700 focus:outline-none"
         >
-          Create Event
+          Create News
         </button>
       </div>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -118,37 +125,37 @@ export default function EventTable() {
             </tr>
           </thead>
           <tbody>
-            {events.map((event) => (
+            {news.map((newsItem) => (
               <tr
-                key={event.id}
+                key={newsItem.id}
                 className="border-b bg-white dark:border-gray-700 dark:bg-gray-800"
               >
                 <th
                   scope="row"
                   className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white"
                 >
-                  {event.title}
+                  {newsItem.title}
                 </th>
-                <td className="px-6 py-4">{event.content}</td>
+                <td className="px-6 py-4">{newsItem.content}</td>
                 <td className="px-6 py-4">
                   <Image
-                    src={event.photo_url}
+                    src={newsItem.photo_url}
                     width={100}
                     height={100}
-                    alt={event.title}
+                    alt={newsItem.title}
                   />
                 </td>
                 <td className="flex justify-center space-x-2 px-6 py-4">
                   <button
                     onClick={() =>
-                      (window.location.href = `/admin/events/edit/${event.id}`)
+                      (window.location.href = `/admin/news/edit/${newsItem.id}`)
                     }
                     className="inline-flex items-center rounded-md bg-green-600 px-3 py-1 text-xs font-medium leading-5 text-white hover:bg-green-500 focus:bg-green-700 focus:outline-none"
                   >
                     Edit
                   </button>
                   <button
-                    onClick={() => setDeleteEventId(event.id)}
+                    onClick={() => setDeleteNewsId(newsItem.id)}
                     data-modal-target="popup-modal"
                     data-modal-toggle="popup-modal"
                     className="inline-flex items-center rounded-md bg-red-600 px-3 py-1 text-xs font-medium leading-5 text-white hover:bg-red-500 focus:bg-red-700 focus:outline-none"
@@ -162,7 +169,7 @@ export default function EventTable() {
         </table>
       </div>
 
-      {deleteEventId && (
+      {deleteNewsId && (
         <div
           id="popup-modal"
           className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-50"
@@ -172,7 +179,7 @@ export default function EventTable() {
               <button
                 type="button"
                 className="absolute end-2.5 top-3 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
-                onClick={() => setDeleteEventId(null)}
+                onClick={() => setDeleteNewsId(null)}
                 data-modal-hide="popup-modal"
               >
                 <svg
@@ -209,12 +216,12 @@ export default function EventTable() {
                   />
                 </svg>
                 <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                  Are you sure you want to delete this event?
+                  Are you sure you want to delete this news?
                 </h3>
                 <button
                   type="button"
                   className="inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:focus:ring-red-800"
-                  onClick={() => handleDelete(deleteEventId)}
+                  onClick={() => handleDelete(deleteNewsId)}
                   data-modal-hide="popup-modal"
                 >
                   Yes, delete
@@ -222,7 +229,7 @@ export default function EventTable() {
                 <button
                   type="button"
                   className="ms-3 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-                  onClick={() => setDeleteEventId(null)}
+                  onClick={() => setDeleteNewsId(null)}
                   data-modal-hide="popup-modal"
                 >
                   No, cancel

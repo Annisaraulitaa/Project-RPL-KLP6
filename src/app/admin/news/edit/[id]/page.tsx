@@ -2,8 +2,8 @@
 
 import React, { useState, useRef, useEffect } from "react";
 
-const EditEventPage = () => {
-  const [eventId, setEventId] = useState<string | undefined | null>(null);
+const EditNewsPage = () => {
+  const [newsId, setNewsId] = useState<string | undefined | null>(null);
   const [dragActive, setDragActive] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
@@ -13,38 +13,34 @@ const EditEventPage = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname;
-      const eventId = path.split("/").filter(Boolean).pop();
-      setEventId(eventId);
+      const newsId = path.split("/").filter(Boolean).pop();
+      setNewsId(newsId);
     }
   }, []);
 
   useEffect(() => {
-    if (!eventId) {
-      console.error("Event ID is undefined");
-      return;
-    }
 
-    const fetchEventDetails = async () => {
+    const fetchNewsDetails = async () => {
       try {
         const response = await fetch(
-          `https://psm-rpl.up.railway.app/api/v1/event/${eventId}`
+          `https://psm-rpl.up.railway.app/api/v1/news/${newsId}`
         );
         if (!response.ok) {
-          throw new Error("Failed to fetch event details");
+          throw new Error("Failed to fetch news details");
         }
-        const eventData = await response.json();
-        setTitle(eventData.title);
-        setContent(eventData.content);
-        if (eventData.photo_url) {
-          setUploadedFile(eventData.photo_url);
+        const newsData = await response.json();
+        setTitle(newsData.data.title);
+        setContent(newsData.data.content);
+        if (newsData.photo_url) {
+          setUploadedFile(newsData.photo_url);
         }
       } catch (error) {
-        console.error("Error fetching event details:", error);
+        console.error("Error fetching news details:", error);
       }
     };
 
-    fetchEventDetails();
-  }, [eventId]);
+    fetchNewsDetails();
+  }, [newsId]);
 
   const handleDrag: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
@@ -85,7 +81,7 @@ const EditEventPage = () => {
       }
 
       const response = await fetch(
-        `https://psm-rpl.up.railway.app/api/v1/event/${eventId}`,
+        `https://psm-rpl.up.railway.app/api/v1/news/${newsId}`,
         {
           method: "PUT",
           headers: {
@@ -96,14 +92,14 @@ const EditEventPage = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to update event");
+        throw new Error("Failed to update news");
       }
 
       const data = await response.json();
-      console.log("Event updated successfully:", data);
-      window.location.href = "/admin/events";
+      console.log("News updated successfully:", data);
+      window.location.href = "/admin/news";
     } catch (error) {
-      console.error("Error updating event:", error);
+      console.error("Error updating news:", error);
     }
   };
 
@@ -111,7 +107,7 @@ const EditEventPage = () => {
     <div className="flex items-center justify-center p-8">
       <div className="flex w-2/3 flex-col gap-8">
         <div className="flex items-center justify-center">
-          <p className="text-2xl font-semibold">Edit Event</p>
+          <p className="text-2xl font-semibold">Edit News</p>
         </div>
         <div className="flex flex-col gap-6">
           <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
@@ -137,7 +133,7 @@ const EditEventPage = () => {
               <textarea
                 id="content"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Explain the event"
+                placeholder="Explain the News"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
               ></textarea>
@@ -194,6 +190,7 @@ const EditEventPage = () => {
                     Max. File Size: 5MB
                   </span>
                 </label>
+            
                 {uploadedFile && (
                   <div className="flex items-center justify-center">
                     <p className="text-gray-600">
@@ -217,4 +214,4 @@ const EditEventPage = () => {
   );
 };
 
-export default EditEventPage;
+export default EditNewsPage;

@@ -1,50 +1,13 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
-const EditEventPage = () => {
-  const [eventId, setEventId] = useState<string | undefined | null>(null);
+const CreateNewsPage = () => {
   const [dragActive, setDragActive] = useState(false);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const path = window.location.pathname;
-      const eventId = path.split("/").filter(Boolean).pop();
-      setEventId(eventId);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!eventId) {
-      console.error("Event ID is undefined");
-      return;
-    }
-
-    const fetchEventDetails = async () => {
-      try {
-        const response = await fetch(
-          `https://psm-rpl.up.railway.app/api/v1/event/${eventId}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch event details");
-        }
-        const eventData = await response.json();
-        setTitle(eventData.title);
-        setContent(eventData.content);
-        if (eventData.photo_url) {
-          setUploadedFile(eventData.photo_url);
-        }
-      } catch (error) {
-        console.error("Error fetching event details:", error);
-      }
-    };
-
-    fetchEventDetails();
-  }, [eventId]);
 
   const handleDrag: React.DragEventHandler<HTMLDivElement> = (e) => {
     e.preventDefault();
@@ -76,18 +39,22 @@ const EditEventPage = () => {
 
     const token = localStorage.getItem("token");
 
+    console.log("Token set in localStorage:", token);
+
     try {
       const formData = new FormData();
       formData.append("title", title);
       formData.append("content", content);
       if (uploadedFile) {
         formData.append("photo", uploadedFile);
+      } else {
+        throw new Error("No file uploaded");
       }
 
       const response = await fetch(
-        `https://psm-rpl.up.railway.app/api/v1/event/${eventId}`,
+        "https://psm-rpl.up.railway.app/api/v1/news/",
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -96,14 +63,14 @@ const EditEventPage = () => {
       );
 
       if (!response.ok) {
-        throw new Error("Failed to update event");
+        throw new Error("Failed to submit news");
       }
 
       const data = await response.json();
-      console.log("Event updated successfully:", data);
-      window.location.href = "/admin/events";
+      console.log("News submitted successfully:", data);
+      window.location.href = "/admin/news";
     } catch (error) {
-      console.error("Error updating event:", error);
+      console.error("Error submitting news:", error);
     }
   };
 
@@ -111,7 +78,7 @@ const EditEventPage = () => {
     <div className="flex items-center justify-center p-8">
       <div className="flex w-2/3 flex-col gap-8">
         <div className="flex items-center justify-center">
-          <p className="text-2xl font-semibold">Edit Event</p>
+          <p className="text-2xl font-semibold">Create News</p>
         </div>
         <div className="flex flex-col gap-6">
           <form className="flex w-full flex-col gap-4" onSubmit={handleSubmit}>
@@ -137,7 +104,7 @@ const EditEventPage = () => {
               <textarea
                 id="content"
                 className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                placeholder="Explain the event"
+                placeholder="Explain the News"
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
               ></textarea>
@@ -194,7 +161,7 @@ const EditEventPage = () => {
                     Max. File Size: 5MB
                   </span>
                 </label>
-                {uploadedFile && (
+                {uploadedFile && ( // Display the uploaded file
                   <div className="flex items-center justify-center">
                     <p className="text-gray-600">
                       {uploadedFile.name} - {uploadedFile.size} bytes
@@ -208,7 +175,7 @@ const EditEventPage = () => {
               type="submit"
               className="mt-4 w-full rounded-lg bg-blue-600 p-2.5 text-sm text-white hover:bg-blue-700"
             >
-              Update
+              Submit
             </button>
           </form>
         </div>
@@ -217,4 +184,4 @@ const EditEventPage = () => {
   );
 };
 
-export default EditEventPage;
+export default CreateNewsPage;

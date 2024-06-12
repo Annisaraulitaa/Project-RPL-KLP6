@@ -1,15 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
-import { TNews } from "@/assets/types/Components/TNews";
 
-export default function NewsSection({ title, content, image }: TNews) {
+interface NewsSectionProps {
+  title: string;
+  content: string;
+  image: string;
+}
+
+const NewsSection: React.FC<NewsSectionProps> = ({ title, content, image }) => {
   return (
     <div className="mb-10 max-w-[700px]">
       <h2 className="py-10 text-center text-2xl font-bold">{title}</h2>
       <Image
         src={image}
         alt={title}
-        className="h-[350px] w-[700px] object-cover"
+        width={700}
+        height={350}
+        className="object-cover"
       />
 
       <div className="mt-3 flex flex-col gap-5">
@@ -25,3 +32,5 @@ export default function NewsSection({ title, content, image }: TNews) {
     </div>
   );
 }
+
+export default NewsSection;
