@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['storage.googleapis.com'], //biar bisa fetch gambar
+    domains: ['storage.googleapis.com', 'flagsapi.com'], // Menambahkan flagsapi.com
     dangerouslyAllowSVG: true,
     remotePatterns: [
       {
